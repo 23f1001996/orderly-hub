@@ -5,6 +5,7 @@ from .table_api import TableApi
 from .menu_api import MenuApi, CategoryApi
 from .order_api import OrderApi, OrderItemApi
 from .feedback_api import FeedbackApi
+from .suggestion_api import SuggestionAPI
 
 api = Api()
 
@@ -51,3 +52,6 @@ api.add_resource(FeedbackApi,
                  '/api/feedback',
                  '/api/feedback/<int:feedback_id>'
                  )
+
+# Suggestion API
+api.add_resource(SuggestionAPI, "/api/suggestions")
