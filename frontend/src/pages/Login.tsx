@@ -1,12 +1,12 @@
 import { useState } from 'react';
 import { useAuth, UserRole } from '@/contexts/AuthContext';
 import { useNavigate, Link } from 'react-router-dom';
-import { Mail, Lock, ChevronDown } from 'lucide-react';
+import { Mail, Lock } from 'lucide-react';
 
 const Login = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
-  const [role, setRole] = useState<UserRole>('admin');
+  const [role, setRole] = useState<UserRole>('admin'); // unchanged
   const [error, setError] = useState('');
   const [loading, setLoading] = useState(false);
   const { login } = useAuth();
@@ -18,7 +18,6 @@ const Login = () => {
     setLoading(true);
     try {
       await login(email, password, role);
-      // role comes back from server; navigate based on what the server says
       navigate(role === 'admin' ? '/admin' : role === 'waiter' ? '/waiter' : '/customer');
     } catch (err: unknown) {
       setError(err instanceof Error ? err.message : 'Login failed');
@@ -30,9 +29,15 @@ const Login = () => {
   return (
     <div className="min-h-screen flex items-center justify-center bg-background p-4">
       <div className="w-full max-w-md animate-fade-in">
+        
+        {/* Header */}
         <div className="text-center mb-8">
-          <h1 className="text-3xl font-display font-bold text-foreground">Lumiere</h1>
-          <p className="text-muted-foreground mt-1">Restaurant Manager</p>
+          <h1 className="text-3xl font-display font-bold text-foreground">
+            OrderlyHub
+          </h1>
+          <p className="text-muted-foreground mt-1">
+            Login
+          </p>
         </div>
 
         <div className="section-card">
@@ -45,6 +50,8 @@ const Login = () => {
           )}
 
           <form onSubmit={handleSubmit} className="space-y-4">
+
+            {/* Email */}
             <div>
               <label className="block text-sm font-medium text-foreground mb-1.5">Email</label>
               <div className="relative">
@@ -54,12 +61,13 @@ const Login = () => {
                   value={email}
                   onChange={(e) => setEmail(e.target.value)}
                   className="w-full rounded-lg border border-input bg-background py-2.5 pl-10 pr-4 text-sm focus:outline-none focus:ring-2 focus:ring-primary"
-                  placeholder="admin@lumiere.com"
+                  placeholder="you@example.com"
                   required
                 />
               </div>
             </div>
 
+            {/* Password */}
             <div>
               <label className="block text-sm font-medium text-foreground mb-1.5">Password</label>
               <div className="relative">
@@ -75,21 +83,7 @@ const Login = () => {
               </div>
             </div>
 
-            <div>
-              <label className="block text-sm font-medium text-foreground mb-1.5">Role</label>
-              <div className="relative">
-                <select
-                  value={role}
-                  onChange={(e) => setRole(e.target.value as UserRole)}
-                  className="w-full appearance-none rounded-lg border border-input bg-background py-2.5 pl-4 pr-10 text-sm focus:outline-none focus:ring-2 focus:ring-primary"
-                >
-                  <option value="admin">Admin / Owner</option>
-                  <option value="waiter">Waiter</option>
-                  <option value="customer">Customer</option>
-                </select>
-                <ChevronDown className="absolute right-3 top-1/2 -translate-y-1/2 h-4 w-4 text-muted-foreground pointer-events-none" />
-              </div>
-            </div>
+            {/* ❌ Role UI removed (logic still exists) */}
 
             <button
               type="submit"
