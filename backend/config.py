@@ -4,7 +4,7 @@ class Config():
     
 class LocalDevelopmentConfig(Config):
     DEBUG = True
-    SQLALCHEMY_DATABASE_URI = 'sqlite:///quiz.sqlite3'
+    SQLALCHEMY_DATABASE_URI = 'sqlite:///db.sqlite3'
     # SQLALCHEMY_ENGINE_OPTIONS = {"connect_args": {"check_same_thread": False, "foreign_keys": "ON"}}
 
     

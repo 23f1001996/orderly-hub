@@ -5,7 +5,7 @@ from backend.models import User, Role
 from flask_security import Security, SQLAlchemyUserDatastore
 from flask_cors import CORS
 from werkzeug.security import generate_password_hash
-
+from backend.seed_menu import seed_menu
 
 def create_app():
     app = Flask(__name__, template_folder="templates")
@@ -63,6 +63,8 @@ def create_app():
                 name="Owner"
             )
             db.session.commit()
+        
+        seed_menu()
 
         # Import routes so decorators register
         from backend import routes  # noqa: F401
